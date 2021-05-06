@@ -2,11 +2,24 @@ img = read_img('resources/test.jpg');
 proj_collect = get_proj(img, 3);
 
 % plot projection image
-theta = 0:3:180;
 imshow(proj_collect,[],'InitialMagnification','fit')
 xlabel('\theta (degrees)')
 ylabel('x''')
 colormap(gca,hot), colorbar
+
+filtered_proj = ramp_filter(proj_collect);
+
+% plo tfiltered projection image
+imshow(filtered_proj,[],'InitialMagnification','fit')
+xlabel('\theta (degrees)')
+ylabel('x''')
+colormap(gca,hot), colorbar
+
+% tell matlab to do inverse FBP without a filter
+theta=0:3:180;
+I1 = iradon(filtered_proj, theta, 'linear', 'none');
+subplot(1,1,1);imagesc( real(I1) ); title('Manual filtering')
+colormap('gray'); axis image; axis off
 
 % frequency space
 pad_len = sqrt(512^2+512^2);
