@@ -1,32 +1,5 @@
-img = imread('resources/test.jpg');
-gray = rgb2gray(img);
-gray = imresize(gray, [512, 512]); % resize
-
-% pad image
-pad_len = sqrt(512^2+512^2);
-p = cast(cast((pad_len - 512)/2, 'int32'), 'double');
-gray_pad = padarray(gray,[p p],0,'both');
-
-
-% rotate degree
-degree = 3;
-
-% 1d projection collect
-proj_collect = zeros(180/degree+1, cast(pad_len, 'int32'));
-
-
-
-freq_i = 1;
-for i=0:degree:180
-    J = imrotate(gray_pad,i,'bilinear','crop'); 
-    % projection
-    projection = sum(J, 2);
-
-    proj_collect(freq_i, :) = projection;
-
-    freq_i = freq_i + 1;
-    
-end
+img = read_img('resources/test.jpg');
+proj_collect = get_proj(img, 3);
 
 % plot projection image
 theta = 0:3:180;
@@ -36,6 +9,7 @@ ylabel('x''')
 colormap(gca,hot), colorbar
 
 % frequency space
+pad_len = sqrt(512^2+512^2);
 freq_domain = zeros(cast(pad_len, 'int32'), cast(pad_len, 'int32'));
 mid = cast(pad_len/2, 'int32');
 for i=1:freq_i-1 
