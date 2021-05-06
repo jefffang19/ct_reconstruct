@@ -1,7 +1,6 @@
 function img = back_proj(proj, degree)
     [proj_len, num_angles] = size(proj);
     
-    % frequency space
     pad_len = sqrt(512^2+512^2);
     reconstruct = zeros(cast(pad_len, 'int32'), cast(pad_len, 'int32'));
     
@@ -22,7 +21,8 @@ function img = back_proj(proj, degree)
     end
     
     reconstruct = reconstruct * pi / (2*num_angles);
-
-    img = reconstruct;
+    
+    % crop image
+    img = imcrop(reconstruct, [106 106 511 511]);
 
 end
