@@ -1,4 +1,4 @@
-function img = ramp_filter(proj)
+function img = ramp_filter_freq(proj)
     [proj_len, num_angles] = size(proj);
     
     % Ram-Lak filter

@@ -4,7 +4,8 @@ gray = imresize(gray, [512, 512]); % resize
 imshow(gray)
 
 % Radon Transform
-theta = 0:3:180;
+degree = 3;
+theta = 0:degree:180;
 [R,xp] = radon(gray,theta);
 
 imshow(R,[],'Xdata',theta,'Ydata',xp,'InitialMagnification','fit')

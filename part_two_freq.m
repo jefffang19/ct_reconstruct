@@ -16,7 +16,7 @@ proj_collect = get_proj(img, degree);
 % ylabel('x''')
 % colormap(gca,hot), colorbar
 
-filtered_proj = ramp_filter(proj_collect);
+filtered_proj = ramp_filter_freq(proj_collect);
 
 % plot filtered projection image
 % imshow(filtered_proj,[],'InitialMagnification','fit')
