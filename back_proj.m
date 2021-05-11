@@ -24,5 +24,7 @@ function img = back_proj(proj, degree)
     
     % crop image
     img = imcrop(reconstruct, [106 106 511 511]);
+    
+    img = flip(img, 2);
 
 end
