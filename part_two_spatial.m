@@ -1,3 +1,7 @@
+% calculate cup time
+tStart = cputime;
+
+
 origin_img = read_img('resources/test.jpg');
 origin_img = cast(origin_img, 'double');
 
@@ -41,3 +45,7 @@ unfiltered_error = sum(abs(I2 - gray), 'all');
 
 filtered_error
 unfiltered_error
+
+
+% calculate cup time
+tEnd = cputime - tStart

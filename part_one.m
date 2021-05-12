@@ -1,3 +1,6 @@
+% calculate cup time
+tStart = cputime;
+
 img = imread('resources/test.jpg');
 gray = rgb2gray(img);
 gray = imresize(gray, [512, 512]); % resize
@@ -39,3 +42,6 @@ unfiltered_error = sum(abs(I2 - gray), 'all');
 
 filtered_error
 unfiltered_error
+
+% calculate cup time
+tEnd = cputime - tStart
