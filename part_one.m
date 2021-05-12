@@ -4,7 +4,7 @@ gray = imresize(gray, [512, 512]); % resize
 gray = cast(gray, 'double');
 
 % Radon Transform
-degree = 3;
+degree = 0.3;
 theta = 0:degree:180;
 [R,xp] = radon(gray,theta);
 
@@ -13,11 +13,13 @@ theta = 0:degree:180;
 % Perform filtered backprojection.
 I1 = iradon(R,theta);
 I1 = imcrop(I1, [1 1 511 511]);
+% normalize unfiltered backprojection
+I1 = mat2gray(I1).*255;
 % Perform unfiltered backprojection.
 I2 = iradon(R,theta,'linear','none');
 I2 = imcrop(I2, [1 1 511 511]);
 % normalize unfiltered backprojection
-I2 = I2./(max(I2, [], 'all') - min(I2, [], 'all')).*255;
+I2 = mat2gray(I2).*255;
 % Display the reconstructed images.
 
 figure
@@ -34,3 +36,6 @@ title('Unfiltered Backprojection')
 % caluculate reconstructed error
 filtered_error = sum(abs(I1 - gray), 'all');
 unfiltered_error = sum(abs(I2 - gray), 'all');
+
+filtered_error
+unfiltered_error
